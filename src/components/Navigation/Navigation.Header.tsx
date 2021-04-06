@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
-// import { css } from "@emotion/core"
+import { css } from "@emotion/react"
 import { Link, navigate, graphql, useStaticQuery } from "gatsby";
 import { useColorMode } from "theme-ui";
 
@@ -63,6 +63,160 @@ const DarkModeToggle: React.FC<{}> = () => {
 };
 
 
+const navbarCss = css`
+  padding: 0 15px;
+
+  .item {
+    padding: 10px;
+  }
+
+  .menu {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: end;
+    align-items: flex-end;
+    flex-wrap: nowrap;
+    background: none;
+    list-style-type: none;
+  }
+
+  .menu li {
+    z-index:9999;
+  }
+
+  .menu li a {
+    display: block;
+    padding: 15px 5px;
+    color: var(--theme-ui-colors-primary,#000)
+  }
+
+  .menu .item {
+    order: 1;
+    position: relative;
+    display: block;
+    width: auto;
+  }
+
+  @media (max-width: 550px){
+    display: none;
+      font-size: 1.33rem;
+
+      .menu {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: start;
+        align-items: center;
+      }
+      .item{
+          padding: 0px;
+      }
+      .menu li a {
+        display: block;
+        padding: 5px 5px;
+      }
+  }
+
+  @media (min-width: 550px) and (max-width: 735px){
+
+    .menu {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: start;
+      align-items: center;
+    }
+    .item{
+        padding: 0px;
+    }
+    .menu li a {
+      display: block;
+      padding: 15px 5px;
+    }
+  }
+`;
+
+const mobileNavCss = css`
+  display: none;
+
+  .item {
+    padding:0 10px 10px 10px;
+  }
+
+  .menu {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: start;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    background: none;
+    list-style-type: none;
+  }
+
+  .menu li {
+    z-index:9999;
+  }
+
+  .menu li a {
+    display: block;
+    padding: 15px 5px;
+    color: var(--theme-ui-colors-primary,#000)
+  }
+
+  .menu .item {
+    order: 1;
+    position: relative;
+    display: block;
+    width: auto;
+  }
+
+  @media (max-width: 550px){
+      display: block;
+      font-size: 1.33rem;
+      padding-top: 20px;
+      width: 100%;
+
+      .menu {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: start;
+        align-items: center;
+      }
+      .item{
+          padding: 0px;
+      }
+      .menu li a {
+        display: block;
+        padding: 0px 10px 0px 0px;
+      }
+  }
+`;
+
+const NavBar = () => {
+return <nav css={navbarCss}>
+    <ul className="menu">
+      <li className="item"><a href="/blog">Blog</a></li>
+      <li className="item"><a href="/now">Now</a></li>
+      <li className="item"><a href="/cv">CV</a></li>
+      <li className="item"><a href="/projects">Projects</a></li>
+      <li className="item"><a href="/contact">Contact</a>
+      </li>
+    </ul>
+  </nav>
+}
+
+const MobileNavBar = () => {
+  return <nav css={mobileNavCss}>
+      <ul className="menu">
+        <li className="item"><a href="/blog">Blog</a></li>
+        <li className="item"><a href="/now">Now</a></li>
+        <li className="item"><a href="/cv">CV</a></li>
+        <li className="item"><a href="/projects">Projects</a></li>
+        <li className="item"><a href="/contact">Contact</a>
+        </li>
+      </ul>
+    </nav>
+  }
+
+
 const NavigationHeader: React.FC<{}> = () => {
   const [showBackArrow, setShowBackArrow] = useState<boolean>(false);
   const [previousPath, setPreviousPath] = useState<string>("/");
@@ -109,7 +263,7 @@ const NavigationHeader: React.FC<{}> = () => {
           danganiev.me
           <Hidden>Navigate back to the homepage</Hidden>
         </HomeButton>
-        {/* </LogoLink> */}
+        <NavBar />
         <NavControls>
           {showBackArrow ? (
             <button
@@ -126,6 +280,7 @@ const NavigationHeader: React.FC<{}> = () => {
           )}
         </NavControls>
       </NavContainer>
+      <MobileNavBar />
     </Section>
   );
 };
@@ -155,6 +310,7 @@ const NavContainer = styled.div`
   padding-top: 100px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 
   ${mediaqueries.desktop_medium`
     padding-top: 50px;
@@ -165,34 +321,6 @@ const NavContainer = styled.div`
   }
 `;
 
-const LogoLink = styled(Link)<{ back: string }>`
-  position: relative;
-  display: flex;
-  align-items: center;
-  left: ${p => (p.back === "true" ? "-54px" : 0)};
-
-  ${mediaqueries.desktop_medium`
-    left: 0
-  `}
-
-  &[data-a11y="true"]:focus::after {
-    content: "";
-    position: absolute;
-    left: -10%;
-    top: -30%;
-    width: 120%;
-    height: 160%;
-    border: 2px solid ${p => p.theme.colors.accent};
-    background: rgba(255, 255, 255, 0.01);
-    border-radius: 5px;
-  }
-
-  &:hover {
-    ${BackArrowIconContainer} {
-      transform: translateX(-3px);
-    }
-  }
-`;
 
 const NavControls = styled.div`
   position: relative;
@@ -202,33 +330,6 @@ const NavControls = styled.div`
   ${mediaqueries.phablet`
     right: -5px;
   `}
-`;
-
-const ToolTip = styled.div<{ isDark: boolean; hasCopied: boolean }>`
-  position: absolute;
-  padding: 4px 13px;
-  background: ${p => (p.isDark ? "#000" : "rgba(0,0,0,0.1)")};
-  color: ${p => (p.isDark ? "#fff" : "#000")};
-  border-radius: 5px;
-  font-size: 14px;
-  top: -35px;
-  opacity: ${p => (p.hasCopied ? 1 : 0)};
-  transform: ${p => (p.hasCopied ? "translateY(-3px)" : "none")};
-  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
-
-  &::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: -6px;
-    margin: 0 auto;
-    width: 0;
-    height: 0;
-    border-left: 6px solid transparent;
-    border-right: 6px solid transparent;
-    border-top: 6px solid ${p => (p.isDark ? "#000" : "rgba(0,0,0,0.1)")};
-  }
 `;
 
 const IconWrapper = styled.button<{ isDark: boolean }>`
