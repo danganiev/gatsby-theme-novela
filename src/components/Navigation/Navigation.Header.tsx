@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
+// import { css } from "@emotion/core"
 import { Link, navigate, graphql, useStaticQuery } from "gatsby";
 import { useColorMode } from "theme-ui";
 
 import Section from "@components/Section";
-import Logo from "@components/Logo";
+// import Logo from "@components/Logo";
 
 import Icons from "@icons";
 import mediaqueries from "@styles/media";
 import {
-  copyToClipboard,
+  // copyToClipboard,
   getWindowDimensions,
   getBreakpointFromTheme,
 } from "@utils";
@@ -22,6 +23,19 @@ const siteQuery = graphql`
         basePath
       }
     }
+  }
+`;
+
+const HomeButton = styled(Link)`
+  font-weight: 600;
+  font-size: 18px;
+  text-decoration: none;
+  color: ${p => p.theme.colors.primary};
+
+  &:hover,
+  &:focus {
+    opacity: 1;
+    text-decoration: underline;
   }
 `;
 
@@ -47,6 +61,7 @@ const DarkModeToggle: React.FC<{}> = () => {
     </IconWrapper>
   );
 };
+
 
 const NavigationHeader: React.FC<{}> = () => {
   const [showBackArrow, setShowBackArrow] = useState<boolean>(false);
@@ -76,7 +91,8 @@ const NavigationHeader: React.FC<{}> = () => {
   return (
     <Section>
       <NavContainer>
-        <LogoLink
+        {/* <LogoLink */}
+        <HomeButton
           to={rootPath || basePath}
           data-a11y="false"
           title="Navigate back to the homepage"
@@ -88,9 +104,12 @@ const NavigationHeader: React.FC<{}> = () => {
               <Icons.ChevronLeft fill={fill} />
             </BackArrowIconContainer>
           )}
-          <Logo fill={fill} />
+          {/* <Logo fill={fill} /> */}
+          {/* <HomeButton>danganiev.me</HomeButton> */}
+          danganiev.me
           <Hidden>Navigate back to the homepage</Hidden>
-        </LogoLink>
+        </HomeButton>
+        {/* </LogoLink> */}
         <NavControls>
           {showBackArrow ? (
             <button
