@@ -5,12 +5,10 @@ import { Link, navigate, graphql, useStaticQuery } from "gatsby";
 import { useColorMode } from "theme-ui";
 
 import Section from "@components/Section";
-// import Logo from "@components/Logo";
 
 import Icons from "@icons";
 import mediaqueries from "@styles/media";
 import {
-  // copyToClipboard,
   getWindowDimensions,
   getBreakpointFromTheme,
 } from "@utils";
@@ -63,7 +61,7 @@ const DarkModeToggle: React.FC<{}> = () => {
 };
 
 
-const navbarCss = css`
+const NavbarCss = styled.nav`
   padding: 0 15px;
 
   .item {
@@ -87,7 +85,7 @@ const navbarCss = css`
   .menu li a {
     display: block;
     padding: 15px 5px;
-    color: var(--theme-ui-colors-primary,#000)
+    color: ${p => p.theme.colors.articleText}
   }
 
   .menu .item {
@@ -134,7 +132,7 @@ const navbarCss = css`
   }
 `;
 
-const mobileNavCss = css`
+const MobileNavCss = styled.nav`
   display: none;
 
   .item {
@@ -158,7 +156,7 @@ const mobileNavCss = css`
   .menu li a {
     display: block;
     padding: 15px 5px;
-    color: var(--theme-ui-colors-primary,#000)
+    color: ${p => p.theme.colors.articleText};
   }
 
   .menu .item {
@@ -191,7 +189,7 @@ const mobileNavCss = css`
 `;
 
 const NavBar = () => {
-return <nav css={navbarCss}>
+return <NavbarCss>
     <ul className="menu">
       <li className="item"><a href="/blog">Blog</a></li>
       <li className="item"><a href="/now">Now</a></li>
@@ -200,11 +198,11 @@ return <nav css={navbarCss}>
       <li className="item"><a href="/contact">Contact</a>
       </li>
     </ul>
-  </nav>
+  </NavbarCss>
 }
 
 const MobileNavBar = () => {
-  return <nav css={mobileNavCss}>
+  return <MobileNavCss>
       <ul className="menu">
         <li className="item"><a href="/blog">Blog</a></li>
         <li className="item"><a href="/now">Now</a></li>
@@ -213,9 +211,8 @@ const MobileNavBar = () => {
         <li className="item"><a href="/contact">Contact</a>
         </li>
       </ul>
-    </nav>
+    </MobileNavCss>
   }
-
 
 const NavigationHeader: React.FC<{}> = () => {
   const [showBackArrow, setShowBackArrow] = useState<boolean>(false);

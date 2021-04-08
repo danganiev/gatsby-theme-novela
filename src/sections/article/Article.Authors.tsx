@@ -89,6 +89,8 @@ const ArticleAuthors: React.FC<AuthorsProps> = ({ authors }) => {
   if (hasCoAuthors) {
     return <CoAuthors authors={authors} />;
   } else {
+
+    if (!authors[0]){return null}
     return (
       <AuthorLink
         as={authors[0].authorsPage ? Link : "div"}
