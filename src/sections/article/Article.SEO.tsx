@@ -4,6 +4,9 @@ import SEO from '@components/SEO';
 
 import { IArticle, IAuthor } from '@types';
 import { graphql, useStaticQuery } from 'gatsby';
+import mixpanel from "mixpanel-browser"
+
+mixpanel.init(process.env.GATSBY_MIXPANEL_ID)
 
 const siteQuery = graphql`
   {
@@ -33,6 +36,7 @@ const ArticleSEO: React.FC<ArticleSEOProps> = ({
   location,
   imagelocation,
 }) => {
+  mixpanel.track("Visit", {"Site": "danganiev.me blog", "Article": article.title});
   const results = useStaticQuery(siteQuery);
   const siteUrl = results.allSite.edges[0].node.siteMetadata.siteUrl;
 

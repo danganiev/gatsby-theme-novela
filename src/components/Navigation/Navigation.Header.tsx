@@ -191,11 +191,11 @@ const MobileNavCss = styled.nav`
 const NavBar = () => {
 return <NavbarCss>
     <ul className="menu">
-      <li className="item"><a href="/blog">Blog</a></li>
-      <li className="item"><a href="/now">Now</a></li>
-      <li className="item"><a href="/cv">CV</a></li>
-      <li className="item"><a href="/projects">Projects</a></li>
-      <li className="item"><a href="/contact">Contact</a>
+      <li className="item"><Link to="/blog">Blog</Link ></li>
+      <li className="item"><Link to="/now">Now</Link ></li>
+      <li className="item"><Link to="/cv">CV</Link ></li>
+      <li className="item"><Link to="/projects">Projects</Link ></li>
+      <li className="item"><Link to="/contact">Contact</Link >
       </li>
     </ul>
   </NavbarCss>
@@ -204,11 +204,11 @@ return <NavbarCss>
 const MobileNavBar = () => {
   return <MobileNavCss>
       <ul className="menu">
-        <li className="item"><a href="/blog">Blog</a></li>
-        <li className="item"><a href="/now">Now</a></li>
-        <li className="item"><a href="/cv">CV</a></li>
-        <li className="item"><a href="/projects">Projects</a></li>
-        <li className="item"><a href="/contact">Contact</a>
+        <li className="item"><Link to="/blog">Blog</Link ></li>
+        <li className="item"><Link to="/now">Now</Link ></li>
+        <li className="item"><Link to="/cv">CV</Link ></li>
+        <li className="item"><Link to="/projects">Projects</Link ></li>
+        <li className="item"><Link to="/contact">Contact</Link >
         </li>
       </ul>
     </MobileNavCss>
